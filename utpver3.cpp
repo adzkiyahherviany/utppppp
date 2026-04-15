@@ -1,34 +1,34 @@
 #include <iostream>
 using namespace std;
 
-// ================= NODE =================
+//buat node kaya biasa
 class Node {
 public:
     string nama;
     string wahana;
-    Node* next;
+    Node* next;    //pionter yang menunjuk ke alamat node berikutnya
 
-    Node(string n, string w) {
+    Node(string n, string w) {    //constructor yg otomatis dijalankan saat node dibuat
         nama = n;
         wahana = w;
         next = nullptr;
     }
 };
 
-// ================= ANTRIAN (SLL) =================
+// class antrian pake sll
 class Antrian {
 private:
-    Node* pHead;
+    Node* pHead;    //pointer yg nunjuk ke alamat node pertama
 
 public:
-    Antrian() {
+    Antrian() {    //constructr 
         pHead = nullptr;
     }
 
     void append(string nama, string wahana) {
         Node* baru = new Node(nama, wahana);
 
-        if (!pHead) {
+        if (!pHead) {    //kalau pHead masih null
             pHead = baru;
             return;
         }
@@ -50,7 +50,7 @@ public:
 
         Node* temp = pHead;
         pHead = pHead->next;
-        return temp;
+        return temp;    //alamatnya dikembalikan lalu nanti disimpan di pointer orang
     }
 
     void cancel(string nama) {
@@ -112,7 +112,7 @@ public:
     }
 };
 
-// ================= LOG (CSLL) =================
+//sistem log pake csll
 class LogNode {
 public:
     string data;
@@ -138,7 +138,7 @@ public:
 
         if (!pHead) {
             pHead = baru;
-            baru->next = pHead;
+            baru->next = pHead;    // karna dia csll
             return;
         }
 
@@ -161,7 +161,7 @@ public:
         do {
             cout << "- " << temp->data << endl;
             temp = temp->next;
-        } while (temp != pHead);
+        } while (temp != pHead);    //pakai do while karna dia csll, agar semua node benar benar ditampilkan
     }
 
     void displayLast(int n) {
@@ -170,19 +170,19 @@ public:
             return;
         }
 
-        int count = 0;
+        int count = 0;    //buat ngitung ada berapa node
         LogNode* temp = pHead;
         do {
             count++;
             temp = temp->next;
         } while (temp != pHead);
 
-        int start = count - n;
-        if (start < 0) start = 0;
+        int start = count - n;    //biar tau harus mulai di tampilkan dari mana
+        if (start < 0) start = 0;    //antisipasi nilai n lebih besar dr jumlah node
 
-        temp = pHead;
+        temp = pHead;    //reset dan pastiin posisi temp
         for (int i = 0; i < start; i++) {
-            temp = temp->next;
+            temp = temp->next;    //temp loncat ke posisi mulai yg dimau user
         }
 
         cout << "Log terakhir:\n";
@@ -193,7 +193,7 @@ public:
     }
 };
 
-// ================= TAMBAHAN: PILIH WAHANA =================
+//pilih wahana
 string pilihWahana() {
     int pilih;
     cout << "Pilih Wahana:\n";
@@ -211,13 +211,14 @@ string pilihWahana() {
 
 // ================= MAIN =================
 int main() {
+    //buat object
     Antrian antrian;
     Log log;
 
     int pilih;
     string nama, wahana;
 
-    do {
+    do {    //pake do while karna harus muncul setidaknya sekali dulu
         cout << "\n=== TAMAN HIBURAN ===\n";
         cout << "1. Masuk Antrian Normal\n";
         cout << "2. Masuk Fast Track\n";
@@ -235,14 +236,14 @@ int main() {
         case 1:
             cout << "Nama: ";
             cin >> nama;
-            wahana = pilihWahana(); // PERUBAHAN
+            wahana = pilihWahana(); 
             antrian.append(nama, wahana);
             break;
 
         case 2:
             cout << "Nama: ";
             cin >> nama;
-            wahana = pilihWahana(); // PERUBAHAN
+            wahana = pilihWahana(); 
             antrian.prepend(nama, wahana);
             break;
 
@@ -253,7 +254,7 @@ int main() {
             } else {
                 log.append(orang->nama + " naik " + orang->wahana);
                 cout << orang->nama << " naik " << orang->wahana << endl;
-                delete orang;
+                delete orang;    //karna datanya udah ga dibutuhkan
             }
             break;
         }
