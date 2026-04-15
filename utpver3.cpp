@@ -238,6 +238,7 @@ int main() {
             cin >> nama;
             wahana = pilihWahana(); 
             antrian.append(nama, wahana);
+            log.append("[NORMAL] " + nama + " masuk antrian " + wahana);
             break;
 
         case 2:
@@ -245,6 +246,7 @@ int main() {
             cin >> nama;
             wahana = pilihWahana(); 
             antrian.prepend(nama, wahana);
+            log.append("[FAST TRACK] " + nama + " masuk fast track " + wahana);
             break;
 
         case 3: {
@@ -252,7 +254,7 @@ int main() {
             if (!orang) {
                 cout << "Antrian kosong\n";
             } else {
-                log.append(orang->nama + " naik " + orang->wahana);
+                log.append("[DILAYANI] " + orang->nama + " naik " + orang->wahana);
                 cout << orang->nama << " naik " << orang->wahana << endl;
                 delete orang;    //karna datanya udah ga dibutuhkan
             }
@@ -263,6 +265,7 @@ int main() {
             cout << "Nama yang batal: ";
             cin >> nama;
             antrian.cancel(nama);
+            log.append("[CANCEL] " + nama + " batal antrian");
             break;
 
         case 5:
